@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "release": "changeset publish",
-    "test": "npm run test"
+    "test": "node --test"
   },
   "bin": {
     "awesome-site-template": "./bin/awesome-site-template.js"
@@ -23,9 +23,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/so-press/awesome-site-template"
-  },
-  "scripts": {
-    "test": "node --test"
   },
   "files": [
     "admin",
