@@ -4,7 +4,9 @@
   "description": "CLI tools to create a HTML/CSS/JS template, with local web server, templating, compiling, etc.",
   "type": "module",
   "bin": {
-    "awesome-site-template": "./bin/awesome-site-template.js"
+    "awesome-site-template": "./bin/awesome-site-template.js",
+    "awesome-site-template-gen": "./bin/awesome-site-template.js --gen",
+    "awesome-site-template-build": "./bin/awesome-site-template.js --build"
   },
   "keywords": [
     "site",
