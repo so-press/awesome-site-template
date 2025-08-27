@@ -15,7 +15,6 @@ jobs:
     env:
       NPM_CONFIG_PROVENANCE: true
       NPM_CONFIG_ACCESS: ''
-      npm_config_access: ''
     steps:
       - uses: actions/checkout@v4
         with:
