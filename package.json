@@ -1,6 +1,6 @@
 {
   "name": "awesome-site-template",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "CLI tools to create a HTML/CSS/JS template, with local web server, templating, compiling, etc.",
   "type": "module",
   "bin": {
@@ -23,6 +23,7 @@
     "url": "git+https://github.com/so-press/awesome-site-template"
   },
   "files": [
+    "admin",
     "lib",
     "bin",
     "template.js"

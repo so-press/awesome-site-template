@@ -62,17 +62,6 @@ public/
 
 Compiled HTML, CSS and JavaScript are written to the `dist` folder. The `public` folder is copied as-is during the build.
 
-## Admin Interface
-
-When the server runs, an admin interface is available at:
-
-```
-https://template-admin-sopress.netlify.app/?url=http://localhost:PORT
-```
-
-Replace `PORT` with the actual port reported by the server.
-
 ## License
 
 MIT
-
