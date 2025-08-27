@@ -11,10 +11,8 @@ Awesome Site Template is a CLI tool that helps you bootstrap a static website pr
 
 ## Installation
 
-Clone the repository and install dependencies:
-
 ```bash
-npm ci
+npm i -g awesome-site-template
 ```
 
 ## Usage
