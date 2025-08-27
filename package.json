@@ -1,11 +1,10 @@
 {
   "name": "awesome-site-template",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "CLI tools to create a HTML/CSS/JS template, with local web server, templating, compiling, etc.",
   "type": "module",
   "scripts": {
-    "release": "changeset publish",
-    "test": "npm run test"
+    "test": "node --test"
   },
   "bin": {
     "awesome-site-template": "./bin/awesome-site-template.js"
@@ -23,9 +22,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/so-press/awesome-site-template"
-  },
-  "scripts": {
-    "test": "node --test"
   },
   "files": [
     "admin",
