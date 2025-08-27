@@ -1,6 +1,6 @@
 {
   "name": "awesome-site-template",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "CLI tools to create a HTML/CSS/JS template, with local web server, templating, compiling, etc.",
   "type": "module",
   "scripts": {
