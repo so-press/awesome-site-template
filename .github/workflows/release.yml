@@ -12,6 +12,10 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      NPM_CONFIG_PROVENANCE: true
+      NPM_CONFIG_ACCESS: ''
+      npm_config_access: ''
     steps:
       - uses: actions/checkout@v4
         with:
@@ -20,6 +24,10 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org
+      - name: Ensure npm registry & clear access (unscoped package)
+        run: |
+          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+          npm config delete access || true
       - run: npm ci
       - run: npm test
       - name: Create version PR or publish
