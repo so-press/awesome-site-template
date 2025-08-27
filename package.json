@@ -1,7 +1,7 @@
 {
   "name": "awesome-site-template",
   "version": "1.0.0",
-  "description": "CLI pour générer et servir un template HTML/CSS/JS",
+  "description": "CLI tools to create a HTML/CSS/JS template, with local web server, templating, compiling, etc.",
   "type": "module",
   "bin": {
     "awesome-site-template": "./bin/awesome-site-template.js"
