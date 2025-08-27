@@ -1,0 +1,82 @@
+{
+  "name": "awesome-site-template",
+  "version": "1.0.0",
+  "description": "CLI pour générer et servir un template HTML/CSS/JS",
+  "type": "module",
+  "bin": {
+    "awesome-site-template": "./bin/awesome-site-template.js"
+  },
+  "keywords": [
+    "site",
+    "template",
+    "cli",
+    "html",
+    "css",
+    "js"
+  ],
+  "author": "SO PRESS",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/so-press/awesome-site-template"
+  },
+  "files": [
+    "lib",
+    "bin",
+    "template.js"
+  ],
+  "dependencies": {
+    "chokidar": "^4.0.1",
+    "concat": "^1.0.3",
+    "cors": "^2.8.5",
+    "cssbeautify": "^0.3.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "fs-extra": "^11.2.0",
+    "handlebars": "^4.7.8",
+    "js-beautify": "^1.15.1",
+    "lorem-ipsum": "^2.0.8",
+    "node-fetch": "^3.3.2",
+    "open-props": "^1.7.6",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "sass": "^1.83.4",
+    "xo": "^0.59.3"
+  },
+  "sass": {
+    "_includes": [
+      "/node_modules/open-props/open-props.min.css"
+    ]
+  },
+  "xo": {
+    "overrides": [
+      {
+        "files": "src/**/*.js",
+        "envs": [
+          "browser"
+        ]
+      }
+    ],
+    "ignore": [
+      "src/**/*.js",
+      "/public/admin/js"
+    ],
+    "semicolon": false,
+    "space": 2,
+    "rules": {
+      "no-await-in-loop": "off",
+      "unicorn/no-process-exit": "off",
+      "camelcase": "off",
+      "comma-dangle": [
+        "error",
+        "never"
+      ],
+      "unicorn/prevent-abbreviations": "off",
+      "import/no-unassigned-import": "off",
+      "import/order": "off",
+      "capitalized-comments": "off"
+    }
+  }
+}
