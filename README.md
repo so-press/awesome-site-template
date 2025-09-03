@@ -1,47 +1,49 @@
 # Site Template
 
-- [Structure du projet](#structure-du-projet)
-- [Concepts : Les "briques"](#concepts--les-briques)
-- [Outils](#outils)
+- [Project structure](#project-structure)
+- [Concepts: The "bricks"](#concepts-the-bricks)
+- [Tools](#tools)
   - [Responsive design](#responsive-design)
-  - [Svg](#svg)
-  - [Générateur](#générateur)
+  - [SVG](#svg)
+  - [Generator](#generator)
   - [Build](#build)
-  - [Serveur local](#serveur-local)
-- [Déploiement](#déploiement)
+  - [Local server](#local-server)
+- [Deployment](#deployment)
 - [Installation](#installation)
-- [Mise à jour](#mise-à-jour)
+- [Update](#update)
 
 # Site Template
 
-Création d'un template de site. Cet outil permet d'intégrer un design et de créer des pages, puis de les enrichir de CSS et de JS pour pouvoir ensuite les incorporer dans un site web de production.
+Creating a site template. This tool allows you to integrate a design and create pages, then enrich them with CSS and JS so they can later be incorporated into a production website.
 
-## Structure du projet
+## Project structure
 
-Le dossier `./src` contient les fichiers utilisés pour construire le design: `.js`, `.css` ou `.scss`, `.hbs` et `.json`. Le dossier `./src/assets` contient lui les assets (svg principalement) utilisés par la tâche de build
+The `./src` folder contains the files used to build the design: `.js`, `.css` or `.scss`, `.hbs`, and `.json`.  
+The `./src/assets` folder contains assets (mainly SVGs) used during the build task.
 
-Le dossier `./public` contient lui tous les éléments destinés à être publics sur le site de production. Avant chaque build, l'intégralité du dossier `./public` est copié dans le dossier `./dist` contenant l'application buildée
+The `./public` folder contains all the elements meant to be public on the production site.  
+Before each build, the entire `./public` folder is copied into the `./dist` folder which contains the built application.
 
-Le dossier `./src/globals/` contient tous les éléments js et (s)css non spécifiques à un composant en particulier. Il contient aussi les fichiers `head.rbs` et `foot.rbs` qui sont automatiquement ajoutés avant et après le contenu des pages lors de leur build
+The `./src/globals/` folder contains all JS and (S)CSS files not specific to a particular component.  
+It also contains the `head.rbs` and `foot.rbs` files, which are automatically included before and after each page during the build.
 
-## Concepts : Les "briques"
+## Concepts: The "bricks"
 
-Une brique peut être : Une page, un composant ou un fragment. La commande `npm run gen` permet de générer des prototypes de briques. [En savoir plus sur cette commande](#générateur)
+A brick can be: a page, a component, or a fragment.  
+The command `npm run gen` lets you generate brick prototypes. [Learn more about this command](#generator)
 
-Pages : structure HTML/CSS/JS riche qui se structure à partir de composants et de fragments, qui contient tous les éléments HTML nécéssaire pour remplir une multitude de fonctions (Exemple : Une page produit, Une page d'accueil, etc)
+- **Pages**: rich HTML/CSS/JS structures built from components and fragments. They include all the HTML needed to perform various functions (e.g. a product page, a homepage).
+- **Components**: HTML/CSS/JS structures made up of other components or fragments, serving defined purposes (e.g. a menu, footer, survey module).
+- **Fragments**: the basic design units — simple HTML/CSS/JS structures, without any nested components/fragments. Used for specific elements (e.g. a button, an illustration).
 
-Composants : Structure HTML/CSS/JS qui se structure elle même à partir d'autres composants, ou de fragments, et qui permet de remplir un certains nombre de fonctions définies. (Exemple : Un menu, un Footer, Un module de sondage)
+[Based on Atomic Design logic: a site is composed of increasingly complex elements](https://atomicdesign.bradfrost.com/)
 
-Fragments : Brique de base du design, faite de HTML/CSS/JS simple, qui ne contient pas de composants ou de fragements, et qui peut remplir un ou deux objectifs très précis. (Exemple : Un bouton, Une illsutration)
+- A site is made of pages
+- A page is made of components and fragments
+- A component is made of fragments (or other components)
+- A fragment contains only standard HTML
 
-[Logique basée sur l'Atomic Design, où u site est composés d'élément de plus en plus complexes](https://atomicdesign.bradfrost.com/)
-
-Un site est composé de pages
-Une page est composée de composants et de fragments
-Un composant est composé d'autres composants, mais surtout de fragments
-Un fragment ne contient que du HTML standard
-
-Les briques sont stockées dans les dossiers
+Bricks are stored in the following folders:
 
 ```sh
 ./src/pages/
@@ -49,37 +51,38 @@ Les briques sont stockées dans les dossiers
 ./src/fragments/
 ```
 
-Chaque brique se compose d'un dossier dont le nom est un slug. Exemple : `./src/fragments/menu`
+Each brick is a folder named with a slug, e.g. `./src/fragments/menu`
 
-Dans le dossier de la brique, on retrouve au moins 3 fichiers :
+Inside each brick folder are at least 3 files:
 
-- le fichier `.hbs` contient le code HTML de la brique, dans la syntaxe [Handlebars](https://handlebarsjs.com/).
-- le fichier `.scss` contient le code SASS/CSS destiné à mettre en forme la brique (Il peut s'agir d'un fichier `.css` si la syntaxe SASS n'est pas nécéssaire)
-- le fichier `.json` contient les meta données de la brique (nom, description, etc).
+- `.hbs`: the brick's HTML, using [Handlebars](https://handlebarsjs.com/) syntax
+- `.scss`: the SASS/CSS styling (can be `.css` if SASS isn’t needed)
+- `.json`: metadata (name, description, etc.)
 
-En option :
+Optional:
 
-- le fichier `.js` contient le module JS dédié à la brique
+- `.js`: the JS module for the brick
 
-Chaque brique peut être importée dans une autre via la syntax `{{>[slug de la brique]}}`
+You can import any brick into another using: `{{>[brick-slug]}}`
 
-Exemple :
+Example:
 
 ```hbs
 {{>menu}}
 ```
 
-## Outils
+## Tools
 
 ### Responsive design
 
-Le template présente 5 brealpoints identifiés par les noms `tiny`, `small`, `medium`, `large`, `xlarge` (Le détail des breakpoints est consultable dans le fichier [./lib/breakpoints.js](./lib/breakpoints.js))
+The template defines 5 breakpoints: `tiny`, `small`, `medium`, `large`, `xlarge`  
+(Breakpoint details are in [./lib/breakpoints.js](./lib/breakpoints.js))
 
-Ces breakpoints sont utilisables de deux manières :
+There are two ways to use breakpoints:
 
-### Mixins SCSS responsive
+### SCSS responsive mixins
 
-Utiliser la syntaxte @include [slug du breakpoint] pour utiliser un breakpoint. Exemple avec cet appel au breakpoint `medium`:
+Use `@include [breakpoint]`. Example for `medium`:
 
 ```scss
 @include medium {
@@ -87,7 +90,7 @@ Utiliser la syntaxte @include [slug du breakpoint] pour utiliser un breakpoint. 
 }
 ```
 
-Qui sera remplacé par cette media query :
+Which compiles to:
 
 ```css
 @media (min-width: 1200px) {
@@ -95,12 +98,12 @@ Qui sera remplacé par cette media query :
 }
 ```
 
-### Fichiers SCSS/CSS responsive
+### Responsive SCSS/CSS files
 
-On peut aussi créer des fichier `.scss` dans les dossiers des briques, en plus du fichier `.scss` de base, au nom duquel on ajoute le slug d'un breakpoint (`test-[slug du breakpoint].scss`) pour que toutes les règles définies dans le fichier ne soient appliquées que dans ce breakpoint.
+You can also add `.scss` files per breakpoint in a brick folder.  
+Name them with the breakpoint slug (e.g. `test-medium.scss`) to scope all rules inside the corresponding media query.
 
-Exemple :
-Voici un fichier `test-medium.scss`
+Example file: `test-medium.scss`
 
 ```scss
 .test {
@@ -111,7 +114,7 @@ Voici un fichier `test-medium.scss`
 }
 ```
 
-Après compilation, le fichier css contiendra alors
+After compilation:
 
 ```css
 @media (min-width: 1200px) {
@@ -124,45 +127,56 @@ Après compilation, le fichier css contiendra alors
 }
 ```
 
-(cela fonctionne aussi bien pour les fichiers `.scss` que `.css`)
+(This works with `.css` files too)
 
-### Svg
+### SVG
 
-Les fichiers `.hbs` peuvent inclure des assets svg via la syntaxe {{svg 'slug du svg'}}. Les svg sont stockés dans ./src/asets/svg
+`.hbs` files can include SVGs using: `{{svg 'svg-slug'}}`  
+SVGs are stored in `./src/assets/svg`
 
-### Générateur
+### Generator
 
-On peut lancer une commande permettant de prototyper des nouvelles briques. Lancer la commande suivante et se laisser guider par les question du générateur
+You can scaffold new bricks by running:
 
-```
+```bash
 npm run gen
 ```
 
-Une fois la création de la brique terminée, ses fichiers sont disponibles dans `./src/[type de brique]/[nom de la brique]. Si la brique est une page, elle sera accessible via l'uri /[slug de la brique].html
+Follow the prompts to create a page, component, or fragment.  
+Files are generated in `./src/[brick-type]/[brick-name]`.  
+If it's a page, it will be available at `/[slug].html`.
 
 ### Build
 
-On peut lancer un build pour obtenir une version 100% HTML statique du site, avec tous les fichiers SASS compilés dans un fichier unique CSS, et un fichier JS unique reprenant tous les modules
+Build a fully static HTML site, with compiled CSS and JS:
 
-```
+```bash
 npm run build
 ```
 
-Les fichiers seront générés dans le dossier `./dist`
+Output is placed in `./dist`.
 
-### Serveur local
+### Local server
 
-On peut lancer un serveur local en utilisant la commande
+Run a local dev server with:
 
-```
+```bash
 npm run dev
 ```
 
-Le serveur tourne sur localhost, avec le port défini dans le fichier .env.(valeur par défaut: 3000). La sortie de cette commande affiche l'url locale du site, ainsi que l'url sur le réseau (pour accéder au site depuis un autres device du même réseau). Est affichée aussi l'url de l'administration, qui permet de parcours toutes les briques
+The server runs on `localhost` at the port set in your `.env` file (default: `3000`).  
+The output shows:
 
-## Déploiement
+- Local site URL
+- Network-accessible URL (e.g. for mobile testing)
+- Admin URL to browse all bricks
 
-Le déploiement peut se faire sur netlify, en utilisant le dossier de build `./dist` et la commande de build `npm run build`
+## Deployment
+
+Deployment can be done via **Netlify**, using:
+
+- Build command: `npm run build`
+- Output folder: `./dist`
 
 ## Installation
 
@@ -172,7 +186,7 @@ npm i -g awesome-site-template
 
 ## Usage
 
-The package exposes a single executable `awesome-site-template` that can be run with `npx`.
+The package exposes a single executable `awesome-site-template` which can be run with `npx`.
 
 ### Start the development server
 
@@ -180,7 +194,8 @@ The package exposes a single executable `awesome-site-template` that can be run 
 npx awesome-site-template
 ```
 
-The server watches your source files, rebuilds the site and reloads connected browsers whenever something changes. The default port is `3333` and can be overridden with the `PORT` environment variable.
+Watches your source files, rebuilds on change, and reloads the browser.  
+Default port: `3333` (can be changed with `PORT` env var)
 
 ### Build for production
 
@@ -188,7 +203,7 @@ The server watches your source files, rebuilds the site and reloads connected br
 npx awesome-site-template --build
 ```
 
-This command empties the `dist` folder, builds assets and copies the `public` directory into `dist`.
+Empties the `dist` folder, builds assets, and copies `public` to `dist`.
 
 ### Generate a new item
 
@@ -196,9 +211,9 @@ This command empties the `dist` folder, builds assets and copies the `public` di
 npx awesome-site-template --gen
 ```
 
-You will be prompted to create a page, component or fragment. The generator creates the directory and optional files for you.
+You'll be prompted to create a page, component, or fragment. The generator sets up the directory and files.
 
-**Attention** Il est recommandé de sauver son travail et d'avoir tout commit avant de lancer un update
+**Warning:** It’s recommended to save and commit your work before running an update.
 
 ## License
 
