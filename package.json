@@ -4,7 +4,7 @@
   "description": "CLI tools to create a HTML/CSS/JS template, with local web server, templating, compiling, etc.",
   "type": "module",
   "scripts": {
-    "release": "changeset publish",
+    "patch": "git add . && git commit && npm version patch && npm publish && git push --follow-tags",
     "test": "node --test"
   },
   "bin": {
